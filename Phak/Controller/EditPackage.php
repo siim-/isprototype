@@ -2,6 +2,7 @@
 namespace Phak\Controller;
 use \Phak\Model\Package;
 use \Phak\Model\User;
+use \Phak\Model\PackageStatus;
 /**
  * Signout controller
  */
@@ -32,6 +33,10 @@ class EditPackage extends \Phak\BaseController {
       $params['users']->map(function($e) use ($values) {
         $e->sender = $values['senderId'] == $e->id;
         $e->receiver = $values['receiverId'] == $e->id;
+      });
+      $params['status'] = PackageStatus::get();
+      $params['status']->map(function($e) use ($values) {
+        $e->current = $e->id == $values['status'];
       });
     }
     $this->_response->templatedResponse('addpackage', $params);
@@ -66,6 +71,10 @@ class EditPackage extends \Phak\BaseController {
       $params['users']->map(function($e) use ($values) {
         $e->sender = $values['senderId'] == $e->id;
         $e->receiver = $values['receiverId'] == $e->id;
+      });
+      $params['status'] = PackageStatus::get();
+      $params['status']->map(function($e) use ($values) {
+        $e->current = $e->id == $values['status'];
       });
     }
     $this->_response->templatedResponse('addpackage', $params);

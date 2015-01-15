@@ -46,7 +46,7 @@
               <label for="status">Status*</label>
               <select class="u-full-width" name="status" id="status">
                 {{#each status}}
-                  <option value="{{id}}" {{#if current}}selected="selected"{{/if}}>{{firstName}} {{surname}}</option>
+                  <option value="{{id}}" {{#if current}}selected="selected"{{/if}}>{{statusName}}</option>
                 {{/each}}
               </select>
             </div>
