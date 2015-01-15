@@ -18,7 +18,7 @@ class Request {
    */
   public function __construct()
   {
-    $this->_headers = getallheaders();
+    $this->_headers = [];
     $this->_post = $_POST;
     $this->_get = $_GET;
     $this->_method = strtolower($_SERVER['REQUEST_METHOD']);
