@@ -1,0 +1,12 @@
+CREATE TABLE `Warehouse` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `country` VARCHAR(50) NOT NULL,
+  `state` VARCHAR(50) NOT NULL,
+  `city` VARCHAR(50) NOT NULL,
+  `settlement` VARCHAR(50) NOT NULL,
+  `street` VARCHAR(50) NOT NULL,
+  `house` VARCHAR(5) NULL DEFAULT NULL,
+  `apartment` VARCHAR(5) NULL DEFAULT NULL,
+  `notes` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;

@@ -1,0 +1,22 @@
+CREATE TABLE `Package` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `senderId` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `receiverId` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `status` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `invoiceId` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `pickup` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dropoff` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `weight` DECIMAL(7,2) NOT NULL,
+  `height` DECIMAL(4,2) NOT NULL,
+  `width` DECIMAL(4,2) NOT NULL,
+  `depth` DECIMAL(4,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `FK_package_sender` (`senderId`),
+  INDEX `FK_package_receiver` (`receiverId`),
+  INDEX `FK_package_status` (`status`),
+  INDEX `FK_package_invoice` (`invoiceId`),
+  CONSTRAINT `FK_package_invoice` FOREIGN KEY (`invoiceId`) REFERENCES `Invoice` (`id`) ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT `FK_package_receiver` FOREIGN KEY (`receiverId`) REFERENCES `User` (`id`) ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT `FK_package_sender` FOREIGN KEY (`senderId`) REFERENCES `User` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `FK_package_status` FOREIGN KEY (`status`) REFERENCES `PackageStatus` (`id`) ON UPDATE CASCADE ON DELETE SET NULL
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
