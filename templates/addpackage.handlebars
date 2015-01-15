@@ -1,7 +1,11 @@
 {{> header}}
   <div class="row">
     <div class="twelve columns">
-      <h2>Add a package</h2>
+      {{#if values}}
+        <h2>Edit package #{{values.id}}</h2>
+      {{else}}
+        <h2>Add a package</h2>
+      {{/if}}
     </div>
   </div>
   {{#if error}}
@@ -10,41 +14,54 @@
   <div class="row">
     <div class="twelve columns">
       <form method="post">
+        {{#unless values}}
         <div class="row">
           <div class="six columns">
             <label for="uNameInput">Receiver e-mail*</label>
             <input class="u-full-width" type="text" name="email" placeholder="user@example.com" id="uNameInput">
           </div>
         </div>
+        {{/unless}}
+        {{#unless receiver}}
         <div class="row">
           <div class="six columns">
             <label for="pwInput">Weight*</label>
-            <input class="u-full-width" type="text" name="weight" placeholder="200 (grams)" id="pwInput">
+            <input class="u-full-width" type="text" name="weight" placeholder="200 (grams)" id="pwInput" value="{{values.weight}}">
           </div>
           <div class="six columns">
             <label for="height">Height*</label>
-            <input class="u-full-width" type="text" name="height" placeholder="120.4 (cm)" id="height">
+            <input class="u-full-width" type="text" name="height" placeholder="120.4 (cm)" id="height" value="{{values.height}}">
           </div>
         </div>
         <div class="row">
           <div class="six columns">
             <label for="width">Width*</label>
-            <input class="u-full-width" type="text" name="width" placeholder="120.4 (cm)" id="width">
+            <input class="u-full-width" type="text" name="width" placeholder="120.4 (cm)" id="width" value="{{values.width}}">
           </div>
           <div class="six columns">
             <label for="depth">Depth*</label>
-            <input class="u-full-width" type="text" name="depth" placeholder="120.4 (cm)" id="depth">
+            <input class="u-full-width" type="text" name="depth" placeholder="120.4 (cm)" id="depth" value="{{values.depth}}">
           </div>
         </div>
+        {{/unless}}
         <div class="row">
           <div class="six columns">
-            <label for="datetimepicker">Reccomended pickup*</label>
-            <input class="u-full-width" name="pickup" id="datetimepicker" type="text" >
+            {{#unless receiver}}
+              <label for="datetimepicker">Recommended pickup*</label>
+              <input class="u-full-width" name="pickup" id="datetimepicker" type="text" value="{{values.pickup}}">
+            {{else}}
+              <label for="datetimepicker">Recommended dropoff</label>
+              <input class="u-full-width" name="dropoff" id="datetimepicker" type="text" value="{{values.dropoff}}">
+            {{/unless}}
           </div>
         </div>
         <div class="row">
           <div class="twelve columns">
-            <input class="button-primary" type="submit" value="Register package">
+            {{#if values}}
+              <input class="button-primary" type="submit" value="Save package">
+            {{else}}
+              <input class="button-primary" type="submit" value="Register package">
+            {{/if}}
           </div>
         </div>
       </form>
