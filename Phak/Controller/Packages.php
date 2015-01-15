@@ -16,12 +16,19 @@ class Packages extends \Phak\BaseController {
   public function get()
   {
     $user = $this->_request->getSessUser();
-    $packages = Package::orWhere('senderId', '=', $user->id)->orWhere('receiverId', '=', $user->id)->get();
+    if ($user->role->id == User::CLIENT) {
+      $packages = Package::orWhere('senderId', '=', $user->id)->orWhere('receiverId', '=', $user->id)->get();
+    } else if ($user->role->id == User::DISPATCH) {
+      $packages = Package::get();
+    }
+   
     $packages->map(function($p) use ($user) {
       $p->status = PackageStatus::where('id', '=', intval($p->status))->first();
       $p->sender = User::find($p->senderId);
       $p->receiver = User::find($p->receiverId);
-      $p->awaiting_payment = $p->status->statusName === 'awaiting_payment' && $p->receiverId !== $user->id;
+      $p->awaiting_payment = $p->status->statusName === 'awaiting_payment' && $p->senderId === $user->id;
+      $p->display_do = $p->receiverId === $user->id || $user->role->id == User::DISPATCH;
+      $p->display_pickup = $p->senderId === $user->id || $user->role->id == User::DISPATCH;
     });
     $this->_response->templatedResponse('packages', [
       'subtitle' => 'List packages', 'packages' => $packages->toArray(),

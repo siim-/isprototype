@@ -8,6 +8,7 @@
             <th>Package id</th>
             <th>Package status</th>
             <th>Package receiver</th>
+            <th>Package sender</th>
             <th>Pickup</th>
             <th>Dropoff</th>
             <th></th>
@@ -20,8 +21,9 @@
             <td>{{id}}</td>
             <td>{{status.statusName}}</td>
             <td>{{receiver.email}}</td>
-            <td>{{pickup}}</td>
-            <td>{{dropoff}}</td>
+            <td>{{sender.email}}</td>
+            <td>{{#if display_pickup}}{{pickup}}{{/if}}</td>
+            <td>{{#if display_do}}{{dropoff}}{{/if}}</td>
             <td>{{#if awaiting_payment}}<a href="{{baseUrl}}?action=pay&id={{id}}" class="menu">Pay</a>{{/if}}</td>
             <td><a href="{{baseUrl}}?action=editPackage&id={{id}}" class="menu">Edit</a></td>
           </tr>

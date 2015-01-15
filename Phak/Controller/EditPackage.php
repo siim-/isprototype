@@ -1,6 +1,7 @@
 <?php
 namespace Phak\Controller;
 use \Phak\Model\Package;
+use \Phak\Model\User;
 /**
  * Signout controller
  */
@@ -22,6 +23,17 @@ class EditPackage extends \Phak\BaseController {
     if ($user->id == $values['receiverId']) {
       $params['receiver'] = true;
     }
+    if ($user->role->id == User::DISPATCH) {
+      $params['privileged'] = true;
+      $params['users'] = User::join('UserRole',
+        function($j) {
+          $j->on('UserRole.user_id', '=', 'User.id');
+      })->where('UserRole.role_id', '=', User::CLIENT)->get();
+      $params['users']->map(function($e) use ($values) {
+        $e->sender = $values['senderId'] == $e->id;
+        $e->receiver = $values['receiverId'] == $e->id;
+      });
+    }
     $this->_response->templatedResponse('addpackage', $params);
   }
 
@@ -34,14 +46,28 @@ class EditPackage extends \Phak\BaseController {
     }
     $package->save();
     $values = Package::find($this->_request->get('id'))->toArray();
+    $params = [
+      'subtitle' => 'Edit package',
+      'values' => $values,
+      'receiver' => $receiver
+    ];
     $user = $this->_request->getSessUser();
     if ($user->id == $values['receiverId']) {
       $params['receiver'] = true;
-      var_dump('hola!');
+    } else {
+      $params['receiver'] = false;
     }
-    $this->_response->templatedResponse('addpackage', [
-      'subtitle' => 'Edit package',
-      'values' => $values
-    ]);
+    if ($user->role->id == User::DISPATCH) {
+      $params['privileged'] = true;
+      $params['users'] = User::join('UserRole',
+        function($j) {
+          $j->on('UserRole.user_id', '=', 'User.id');
+      })->where('UserRole.role_id', '=', User::CLIENT)->get();
+      $params['users']->map(function($e) use ($values) {
+        $e->sender = $values['senderId'] == $e->id;
+        $e->receiver = $values['receiverId'] == $e->id;
+      });
+    }
+    $this->_response->templatedResponse('addpackage', $params);
   }
 }

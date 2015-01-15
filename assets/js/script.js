@@ -3,7 +3,15 @@ $(function() {
     $('#datetimepicker').datetimepicker({
       inline:true,
       format:'Y-m-d H:i',
-      value: $('#datetimepicker').val(),
+      startDate: $('#datetimepicker').val(),
+      defaultSelect: false
+    });
+  }
+  if ($('#datetimepicker2').length > 0) {
+    $('#datetimepicker2').datetimepicker({
+      inline:true,
+      format:'Y-m-d H:i',
+      startDate: $('#datetimepicker2').val(),
       defaultSelect: false
     });
   }
