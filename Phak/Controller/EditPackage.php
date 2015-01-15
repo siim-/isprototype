@@ -53,6 +53,9 @@ class EditPackage extends \Phak\BaseController {
   {
     $package = Package::find($this->_request->get('id'));
     $input = $this->_request->post();
+    if (isset($input['receiverId']) && isset($input['senderId']) && $input['receiverId'] === $input['senderId']) {
+      $this->_response->error('Receiver and sender can\'t be the same person!');
+    }
     foreach ($input as $k => $i) {
       $package->setAttribute($k, $i);
     }
@@ -60,8 +63,7 @@ class EditPackage extends \Phak\BaseController {
     $values = Package::find($this->_request->get('id'))->toArray();
     $params = [
       'subtitle' => 'Edit package',
-      'values' => $values,
-      'receiver' => $receiver
+      'values' => $values
     ];
     $user = $this->_request->getSessUser();
     if ($user->id == $values['receiverId']) {
