@@ -1,0 +1,12 @@
+CREATE TABLE `ClientAddress` (
+  `userId` INT(10) UNSIGNED NOT NULL,
+  `country` VARCHAR(50) NOT NULL,
+  `state` VARCHAR(50) NOT NULL,
+  `city` VARCHAR(50) NOT NULL,
+  `settlement` VARCHAR(50) NOT NULL,
+  `street` VARCHAR(50) NOT NULL,
+  `house` VARCHAR(5) NULL DEFAULT NULL,
+  `apartment` VARCHAR(5) NULL DEFAULT NULL,
+  `notes` TEXT NULL DEFAULT NULL,
+  CONSTRAINT `FK_clientAddress_user` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
