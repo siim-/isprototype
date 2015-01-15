@@ -25,7 +25,7 @@ class EditPackage extends \Phak\BaseController {
       $params['receiver'] = true;
     }
     if ($user->role->id == User::DISPATCH) {
-      $params['privileged'] = true;
+      $params['toggle_users'] = true;
       $params['users'] = User::join('UserRole',
         function($j) {
           $j->on('UserRole.user_id', '=', 'User.id');
@@ -38,6 +38,13 @@ class EditPackage extends \Phak\BaseController {
       $params['status']->map(function($e) use ($values) {
         $e->current = $e->id == $values['status'];
       });
+    }
+    if ($user->role->id == User::WHM) {
+      $params['status'] = PackageStatus::get();
+      $params['status']->map(function($e) use ($values) {
+        $e->current = $e->id == $values['status'];
+      });
+      $params['whm'] = true;
     }
     $this->_response->templatedResponse('addpackage', $params);
   }
@@ -63,7 +70,7 @@ class EditPackage extends \Phak\BaseController {
       $params['receiver'] = false;
     }
     if ($user->role->id == User::DISPATCH) {
-      $params['privileged'] = true;
+      $params['toggle_users'] = true;
       $params['users'] = User::join('UserRole',
         function($j) {
           $j->on('UserRole.user_id', '=', 'User.id');
@@ -76,6 +83,13 @@ class EditPackage extends \Phak\BaseController {
       $params['status']->map(function($e) use ($values) {
         $e->current = $e->id == $values['status'];
       });
+    }
+    if ($user->role->id == User::WHM) {
+      $params['status'] = PackageStatus::get();
+      $params['status']->map(function($e) use ($values) {
+        $e->current = $e->id == $values['status'];
+      });
+      $params['whm'] = true;
     }
     $this->_response->templatedResponse('addpackage', $params);
   }

@@ -27,11 +27,9 @@ class UserPage extends \Phak\BaseController {
       case User::CLIENT:
         $page = 'clientpage';
         break;
+      case User::WHM:
       case User::DISPATCH:
         $page = 'dispatchpage';
-        break;
-      case User::WHM:
-        $page = 'whmpage';
         break;
       default:
         $page = 'whmpage';

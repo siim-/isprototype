@@ -22,7 +22,7 @@
           </div>
         </div>
         {{/unless}}
-        {{#if privileged}}
+        {{#if users}}
           <div class="row">
             <div class="six columns">
               <label for="sender">Sender*</label>
@@ -41,16 +41,18 @@
               </select>
             </div>
           </div>
-          <div class="row">
-            <div class="six columns">
-              <label for="status">Status*</label>
-              <select class="u-full-width" name="status" id="status">
-                {{#each status}}
-                  <option value="{{id}}" {{#if current}}selected="selected"{{/if}}>{{statusName}}</option>
-                {{/each}}
-              </select>
-            </div>
+        {{/if}}
+        {{#if status}}
+        <div class="row">
+          <div class="six columns">
+            <label for="status">Status*</label>
+            <select class="u-full-width" name="status" id="status">
+              {{#each status}}
+                <option value="{{id}}" {{#if current}}selected="selected"{{/if}}>{{statusName}}</option>
+              {{/each}}
+            </select>
           </div>
+        </div>
         {{/if}}
 
         {{#unless receiver}}
@@ -78,8 +80,10 @@
         <div class="row">
           <div class="six columns">
             {{#unless receiver}}
-              <label for="datetimepicker">Recommended pickup*</label>
-              <input class="u-full-width" name="pickup" id="datetimepicker" type="text" value="{{values.pickup}}">
+              {{#unless whm}}
+                <label for="datetimepicker">Recommended pickup*</label>
+                <input class="u-full-width" name="pickup" id="datetimepicker" type="text" value="{{values.pickup}}">
+              {{/unless}}
             {{else}}
               <label for="datetimepicker">Recommended dropoff*</label>
               <input class="u-full-width" name="dropoff" id="datetimepicker" type="text" value="{{values.dropoff}}">

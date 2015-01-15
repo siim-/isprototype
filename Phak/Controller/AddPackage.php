@@ -1,5 +1,6 @@
 <?php
 namespace Phak\Controller;
+use \Phak\Model\ClientAddress;
 /**
  * AddPackage controller
  */
@@ -37,7 +38,11 @@ class AddPackage extends \Phak\BaseController {
         if (!\Phak\Model\Package::addNew($params['user'], $user, $input)) {
           $params['error'] = 'Failed to add package!';
         } else {
-          var_dump('Success!');
+          if (ClientAddress::find($this->_request->getSessUser()->id)) {
+            $this->_response->redirect('packages');
+          } else {
+            $this->_response->redirect('editAddress');
+          }
         }
       }
     }
