@@ -1,0 +1,57 @@
+{{> header}}
+  <form method="post">
+    <div class="row">
+      <div class="six columns">
+        <label for="country">Country*</label>
+        <input class="u-full-width" type="text" name="country" placeholder="Estonia" id="country" value="{{values.country}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="state">State*</label>
+        <input class="u-full-width" type="text" name="state" placeholder="State" id="state" value="{{values.state}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="city">City*</label>
+        <input class="u-full-width" type="text" name="city" placeholder="Fakey city" id="city" value="{{values.city}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="settlement">Settlement*</label>
+        <input class="u-full-width" type="text" name="settlement" placeholder="Fakey towny" id="settlement" value="{{values.settlement}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="street">Street*</label>
+        <input class="u-full-width" type="text" name="street" placeholder="Fake st." id="street" value="{{values.street}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="house">House*</label>
+        <input class="u-full-width" type="text" name="house" placeholder="12B" id="house" value="{{values.house}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="apartment">Apartment*</label>
+        <input class="u-full-width" type="text" name="apartment" placeholder="12B" id="apartment" value="{{values.apartment}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="notes">Notes*</label>
+        <textarea id="notes" name="notes">{{values.notes}}</textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <input class="button-primary" type="submit" value="Save address">
+      </div>
+    </div>
+  </form>
+{{> footer}}
