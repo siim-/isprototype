@@ -1,5 +1,6 @@
 <?php
 namespace Phak\Controller;
+use \Phak\Model\User;
 
 /**
  * User page controller
@@ -14,15 +15,30 @@ class UserPage extends \Phak\BaseController {
   public function get()
   { 
     $user = $this->_request->getSessUser();
-    if (is_null($user) && is_null($id)) {
-      $this->_response->notAuthed();
-    }
     $params = [
       'user' => $user,
-      'title' => 'Dashboard'
+      'subtitle' => 'Dashboard'
     ];
+    switch ($user->role->id) {
+      case User::COURIER:
+      case User::ADMIN:
+        $page = 'userpage';
+        break;
+      case User::CLIENT:
+        $page = 'clientpage';
+        break;
+      case User::DISPATCH:
+        $page = 'dispatchpage';
+        break;
+      case User::WHM:
+        $page = 'whmpage';
+        break;
+      default:
+        $page = 'whmpage';
+        break;
+    }
     
-    $this->_response->templatedResponse('userpage', $params);
+    $this->_response->templatedResponse($page, $params);
   }
 
   public function post()

@@ -5,11 +5,19 @@ use \Phak\Config;
 
 class User extends \Illuminate\Database\Eloquent\Model {
 
+  //Roles
+  const ADMIN = 1;
+  const DISPATCH = 2;
+  const WHM = 3;
+  const COURIER = 4;
+  const CLIENT = 5;
+
   protected $table = 'User';
 
   public $includes = [
     'role'
   ];
+
 
   /**
    * Generate a salted, peppered hash
