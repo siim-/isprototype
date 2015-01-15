@@ -1,0 +1,17 @@
+{
+    "name": "siim-/isprototype",
+    "description": "Prototype for the Introduction to Information Systems course",
+    "authors": [
+        {
+            "name": "Siim Kaspar Uustalu",
+            "email": "siim@pii.ee"
+        }
+    ],
+    "require": {
+        "xamin/handlebars.php": "0.10.*",
+        "illuminate/database": "*"
+    },
+    "autoload": {
+        "psr-4": {"Phak\\": "Phak/"}
+    }
+}

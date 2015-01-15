@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Packagr DEMO {{#if subtitle}} - {{subtitle}}{{/if}}</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="six columns pull-left">
+          {{#if authed}}
+            <h1><a class="menu pseudo-logo" href="{{ baseUrl }}?action=userPage">Packagr</a></h1>
+          {{else}}
+            <h1><a class="menu pseudo-logo" href="{{ baseUrl }}?action=index">Packagr</a></h1>
+          {{/if}}
+        </div>
+        <div class="six columns pull-right menu">
+          {{#if authed}}
+            {{#if user}}
+              <b>{{user.firstName}} {{user.surname}}</b> ({{user.role.roleName}})
+            {{/if}}
+            <a class="menu" href="{{ baseUrl }}?action=signout">Sign out</a>
+          {{/if}}
+        </div>
+      </div>
+      {{#if error.general}}
+        {{> error error.general}}
+      {{/if}}
